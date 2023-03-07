@@ -10,5 +10,4 @@ import lombok.*;
 public class UpdateTodoRequest {
     private String title;
     private Boolean status;
-    private String lever;
 }
