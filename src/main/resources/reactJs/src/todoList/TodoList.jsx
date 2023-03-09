@@ -14,7 +14,7 @@ function TodoList() {
             setTodos(dataJson)
         }
         fetchData();
-    })
+    },[])
 
     const handleChangeInput = (event) =>{
         SetInputValue(event.target.value)
@@ -31,7 +31,6 @@ function TodoList() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({title: `${inputValue}`})
         })
-
         setTodos([...todos,inputValue]);
     }
 
@@ -42,7 +41,7 @@ function TodoList() {
             return;
         }
         const status = prompt("Hoàn thành nhập true ");
-        const getStatus = status.trim().toLowerCase === "true" ? true : false;
+        const getStatus = status.trim().toLowerCase() == "true" ? "true" : "false";
 
         await fetch(`${URL}/${index}`,
             {method : 'PUT',
@@ -57,6 +56,18 @@ function TodoList() {
         setTodos(newData);
     }
 
+    const changeChecked = async (index) => {
+        await fetch(`${URL}/toggle/${index}`, {
+            method:'PUT'
+        })
+        const newTodos = todos.map(e => {
+            if (e.id === index){
+                e.status = !e.status;
+            } 
+        })
+        setTodos(newTodos);
+    }
+    
   return (
     <>
         <h1>TodoList</h1>
@@ -66,7 +77,7 @@ function TodoList() {
             <ul>
                 {todos.map((e, i) =>(
                     <li key={i}>
-                        <input type="checkbox" name="" id="" />
+                        <input type="checkbox" name="" id="" onChange = {() => changeChecked(e.id)}  checked = {e.status}/>
                         {e.title}
                         <button onClick={() =>editTodo(e.id)}>Edit</button>
                         <button onClick={() => deleteTodo(e.id)}>Delete</button>

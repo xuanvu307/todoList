@@ -62,4 +62,13 @@ public class TodoService {
     public void deleteTodo(Integer id) {
         todoRepository.getAllTodo().removeIf(todo -> Objects.equals(todo.getId(), id));
     }
+
+    public Todo updateStatusTodo(Integer id) {
+        todoRepository.getAllTodo().forEach(todo -> {
+            if (todo.getId().equals(id)){
+                todo.setStatus(!todo.getStatus());
+            }
+        });
+        throw  new RuntimeException("id khong dung");
+    }
 }
