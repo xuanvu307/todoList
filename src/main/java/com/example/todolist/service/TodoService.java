@@ -33,7 +33,7 @@ public class TodoService {
                 .filter(todo -> todo.getId() == id)
                 .findFirst()
                 .orElseThrow(() ->
-                    new NotFoundException("id khong ton tai")
+                        new NotFoundException("id khong ton tai")
                 )
                 ;
     }
@@ -64,11 +64,12 @@ public class TodoService {
     }
 
     public Todo updateStatusTodo(Integer id) {
-        todoRepository.getAllTodo().forEach(todo -> {
-            if (todo.getId().equals(id)){
+        for (Todo todo : todoRepository.getAllTodo()) {
+            if (todo.getId().equals(id)) {
                 todo.setStatus(!todo.getStatus());
+                return todo;
             }
-        });
-        throw  new RuntimeException("id khong dung");
+        }
+        throw new NotFoundException("id khong dung");
     }
 }

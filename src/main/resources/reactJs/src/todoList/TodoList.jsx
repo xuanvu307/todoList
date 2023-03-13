@@ -65,14 +65,13 @@ function TodoList() {
     }
 
     const changeChecked = async (index) => {
-        await fetch(`${URL}/toggle/${index}`, {
-            method:'PUT',
-            headers: { 'Content-Type': 'application/none' }
-        })
+        await fetch(`${URL}/toggle/${index}`)
+    
         const newTodos = todos.map(e => {
             if (e.id === index){
                 e.status = !e.status;
             } 
+            return e;
         })
         setTodos(newTodos);
     }

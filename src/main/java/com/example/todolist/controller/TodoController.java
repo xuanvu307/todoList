@@ -39,7 +39,7 @@ public class TodoController {
         return todoService.updateTodo(id, request);
     }
 
-    @PutMapping("/todos/toggle/{id}")
+    @GetMapping ("/todos/toggle/{id}")
     public Todo updateStatusTodo(@PathVariable Integer id) {
         return todoService.updateStatusTodo(id);
     }
