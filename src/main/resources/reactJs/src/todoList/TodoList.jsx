@@ -7,6 +7,8 @@ function TodoList() {
     const [inputValue, SetInputValue] = useState("");
 
     const URL = "http://localhost:8080/api/todos";
+
+    // get dữ liệu ban đầu
     useEffect(() =>{
         const fetchData = async () =>{
             const data = await fetch(`${URL}`)
@@ -16,6 +18,7 @@ function TodoList() {
         fetchData();
     },[])
 
+    // thêm todo
     const addTodo =  async () =>{
         if(inputValue.trim() === ""){
             alert("Tiêu đề không để trống");
@@ -27,16 +30,21 @@ function TodoList() {
             body: JSON.stringify({title: `${inputValue}`})
         })
         const dataJson = await todo.json();
-
         setTodos([...todos,dataJson]);
+
+        // set dữ liệu ô input về trống
+        SetInputValue("");
     }
 
+    // edit todo
     const editTodo = async (index) =>{
         const titleName = prompt("Nhập tiêu đề cần sửa");
         if (titleName.trim() === ""){
             alert("Tiêu đề trống");
             return;
         }
+
+        // nhập true trả về true, nhập khác trả về false
         const status = prompt("Hoàn thành nhập true ");
         const getStatus = status.trim().toLowerCase() == "true" ? "true" : "false";
 
@@ -58,12 +66,14 @@ function TodoList() {
     }
 
 
+    // xóa todo
     const deleteTodo = async (index) =>{
         await fetch(`${URL}/${index}`, {method : 'DELETE'});
         const newData = todos.filter(e => e.id != index);
         setTodos(newData);
     }
 
+    // toggle status
     const changeChecked = async (index) => {
         await fetch(`${URL}/toggle/${index}`)
     
@@ -76,9 +86,10 @@ function TodoList() {
         setTodos(newTodos);
     }
     
+    // sử dụng useEffect để render lại mọi hành động khi thay đổi list todo
     useEffect(() =>{
         console.log("render")
-    },[todos,inputValue])
+    },[todos])
 
   return (
     <>
