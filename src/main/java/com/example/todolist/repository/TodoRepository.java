@@ -1,15 +1,9 @@
 package com.example.todolist.repository;
 
-import com.example.todolist.dao.TodoData;
-import com.example.todolist.modol.Todo;
+import com.example.todolist.model.Todo;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public class TodoRepository {
-
-    public List<Todo> getAllTodo(){
-        return TodoData.listTodo;
-    }
+public interface TodoRepository extends JpaRepository<Todo, Integer> {
 }

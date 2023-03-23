@@ -1,6 +1,6 @@
 package com.example.todolist.dao;
 
-import com.example.todolist.modol.Todo;
+import com.example.todolist.model.Todo;
 
 import java.util.ArrayList;
 import java.util.List;

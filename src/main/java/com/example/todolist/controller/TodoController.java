@@ -1,6 +1,6 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.modol.Todo;
+import com.example.todolist.model.Todo;
 import com.example.todolist.request.CreateTodoRequest;
 import com.example.todolist.request.UpdateTodoRequest;
 import com.example.todolist.service.TodoService;
